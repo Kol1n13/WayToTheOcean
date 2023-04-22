@@ -16,7 +16,7 @@ public class Player_Life : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Traps"))
+        if (collision.gameObject.CompareTag("Traps") || Firetrap.active && collision.gameObject.CompareTag("Firetrap"))
             Die();
     }
     

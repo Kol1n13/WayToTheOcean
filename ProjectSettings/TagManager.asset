@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Apple
   - Traps
+  - Firetrap
   layers:
   - Default
   - TransparentFX

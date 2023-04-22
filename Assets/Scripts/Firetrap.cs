@@ -14,7 +14,7 @@ public class Firetrap : MonoBehaviour
     private SpriteRenderer spriteRend;
 
     private bool triggered; //when the trap gets triggered
-    private bool active; //when the trap is active and can hurt the player
+    public static bool active; //when the trap is active and can hurt the player
 
 
     private void Awake()

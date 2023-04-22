@@ -510,7 +510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215536705}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.18, y: -3.22, z: 0}
+  m_LocalPosition: {x: -21, y: -3.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -105985,7 +105985,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955424294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.75, y: 5.04, z: 0}
+  m_LocalPosition: {x: 4.27, y: 3.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -106664,7 +106664,7 @@ GameObject:
   - component: {fileID: 1389180656}
   m_Layer: 0
   m_Name: Firetrap
-  m_TagString: Untagged
+  m_TagString: Firetrap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106697,7 +106697,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.52117765}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -106708,7 +106708,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 0.9576447}
   m_EdgeRadius: 0
 --- !u!212 &1389180654
 SpriteRenderer:
@@ -111000,7 +111000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129191517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.29, y: -3.22, z: 0}
+  m_LocalPosition: {x: -10, y: -3.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111136,6 +111136,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1646948584}
     m_Modifications:
+    - target: {fileID: 649524109078471872, guid: bc3d93fec4df4764a9c7c79af976bdb4, type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 649524109078471872, guid: bc3d93fec4df4764a9c7c79af976bdb4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1628341463
+      objectReference: {fileID: 0}
     - target: {fileID: 649524109078471874, guid: bc3d93fec4df4764a9c7c79af976bdb4, type: 3}
       propertyPath: m_Name
       value: Saw
@@ -111146,11 +111154,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 649524109078471875, guid: bc3d93fec4df4764a9c7c79af976bdb4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.32
+      value: -16.2
       objectReference: {fileID: 0}
     - target: {fileID: 649524109078471875, guid: bc3d93fec4df4764a9c7c79af976bdb4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.22
+      value: -3.1
       objectReference: {fileID: 0}
     - target: {fileID: 649524109078471875, guid: bc3d93fec4df4764a9c7c79af976bdb4, type: 3}
       propertyPath: m_LocalPosition.z
