@@ -8,6 +8,8 @@ public class Player_Life : MonoBehaviour
     private Animator anime;
     private Rigidbody2D rjbody;
 
+    [SerializeField] private AudioSource deathSound;
+
     void Start()
     {
         anime = GetComponent<Animator>(); 
@@ -16,12 +18,19 @@ public class Player_Life : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Traps") || Firetrap.active && collision.gameObject.CompareTag("Firetrap"))
+        if (collision.gameObject.CompareTag("Traps"))
             Die();
     }
-    
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Firetrap") && Firetrap.active)
+        {
+            Die();
+        }
+    }
     private void Die()
     {
+        deathSound.Play();
         rjbody.bodyType = RigidbodyType2D.Static;
         anime.SetTrigger("Death");
     }
