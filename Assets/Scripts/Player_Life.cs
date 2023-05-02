@@ -7,8 +7,11 @@ public class Player_Life : MonoBehaviour
 {
     private Animator anime;
     private Rigidbody2D rjbody;
+    [SerializeField] private float jumpForce = 14f;
 
     [SerializeField] private AudioSource deathSound;
+
+    public static bool TraplineActive;
 
     void Start()
     {
@@ -16,26 +19,32 @@ public class Player_Life : MonoBehaviour
         rjbody = GetComponent<Rigidbody2D>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Traps"))
             Die();
+        if (collision.gameObject.CompareTag("Tramp"))
+        {
+            TraplineActive = true;
+            rjbody.velocity = new Vector3(rjbody.velocity.x, jumpForce);
+        }
     }
-    private void OnTriggerStay2D(Collider2D collision)
+
+    protected void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Firetrap") && Firetrap.active)
         {
             Die();
         }
     }
-    private void Die()
+    protected void Die()
     {
         deathSound.Play();
         rjbody.bodyType = RigidbodyType2D.Static;
         anime.SetTrigger("Death");
     }
 
-    private void RestartLevel()
+    protected void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
