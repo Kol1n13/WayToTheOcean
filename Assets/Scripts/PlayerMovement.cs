@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private BoxCollider2D coll;
 
+    private Transform gunPoint;
+
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
@@ -24,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         anime = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
+        gunPoint = transform.Find("GunPoint");
     }
 
     // Update is called once per frame
@@ -48,15 +51,19 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.running;
             sprite.flipX = false;
+            gunPoint.localPosition = new Vector3(1.2f, gunPoint.localPosition.y, gunPoint.localPosition.z);
+            gunPoint.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
         else if (dirX < 0f)
         {
             state = MovementState.running;
             sprite.flipX = true;
+            gunPoint.localPosition = new Vector3(-1.2f, gunPoint.localPosition.y, gunPoint.localPosition.z);
+            gunPoint.rotation = Quaternion.Euler(0f, 0f, 180f);
         }
         else
         {
-            state = MovementState.idle; 
+            state = MovementState.idle;
         }
         if (rb.velocity.y > .1f)
         {
@@ -68,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
         }
         anime.SetInteger("MovementState", (int)state);
     }
+
+
 
     private bool IsGrounded()
     {
