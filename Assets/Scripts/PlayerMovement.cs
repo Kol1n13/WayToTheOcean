@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
     [SerializeField] private LayerMask jumpableGroud;
-    
+
     private enum MovementState { idle, running, jumping, falling }
 
     [SerializeField] private AudioSource jumpSound;

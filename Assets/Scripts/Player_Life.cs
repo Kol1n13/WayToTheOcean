@@ -32,7 +32,7 @@ public class Player_Life : MonoBehaviour
 
     protected void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Firetrap") && Firetrap.active)
+        if (collision.gameObject.CompareTag("Firetrap") && Firetrap.active || collision.gameObject.CompareTag("Fan"))
         {
             Die();
         }

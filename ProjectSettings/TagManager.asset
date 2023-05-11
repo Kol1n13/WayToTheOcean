@@ -9,6 +9,8 @@ TagManager:
   - Firetrap
   - Tramp
   - PlayerBullet
+  - Fan
+  - Gun
   layers:
   - Default
   - TransparentFX
