@@ -15,10 +15,35 @@ public class Player_Life : MonoBehaviour
 
     public static bool TraplineActive;
 
+    [SerializeField] private float fallThreshold = -20f; // Пороговое значение скорости падения
+
+    private bool isFalling = false;
+
     void Start()
     {
-        anime = GetComponent<Animator>(); 
+        anime = GetComponent<Animator>();
         rjbody = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        if (rjbody.velocity.y < fallThreshold && !isFalling)
+        {
+            isFalling = true;
+            StartCoroutine(FallCheckCoroutine());
+        }
+    }
+
+    IEnumerator FallCheckCoroutine()
+    {
+        yield return new WaitForSeconds(1.0f); // Подождать 1 секунду, чтобы убедиться, что игрок продолжает падать
+
+        if (isFalling && rjbody.velocity.y < fallThreshold)
+        {
+            Die();
+        }
+
+        isFalling = false;
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
@@ -39,6 +64,7 @@ public class Player_Life : MonoBehaviour
             Die();
         }
     }
+
     protected void Die()
     {
         if (ItemCollecter.isGunCollected)
@@ -53,5 +79,4 @@ public class Player_Life : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
 }
