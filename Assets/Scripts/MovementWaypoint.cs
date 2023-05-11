@@ -10,6 +10,7 @@ public class MovementWaypoint : MonoBehaviour
 
     private void Update()
     {
+        
         if (Vector2.Distance(waypoints[currentWaypointIndex].transform.position, transform.position) < .1f)
         {
             currentWaypointIndex += 1;
