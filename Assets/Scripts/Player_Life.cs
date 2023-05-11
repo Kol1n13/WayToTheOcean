@@ -8,6 +8,8 @@ public class Player_Life : MonoBehaviour
     private Animator anime;
     private Rigidbody2D rjbody;
     [SerializeField] private float jumpForce = 14f;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject playerWithGun;
 
     [SerializeField] private AudioSource deathSound;
 
@@ -39,6 +41,9 @@ public class Player_Life : MonoBehaviour
     }
     protected void Die()
     {
+        if (ItemCollecter.isGunCollected)
+            player.transform.position = playerWithGun.transform.position;
+        ItemCollecter.isGunCollected = false;
         deathSound.Play();
         rjbody.bodyType = RigidbodyType2D.Static;
         anime.SetTrigger("Death");
