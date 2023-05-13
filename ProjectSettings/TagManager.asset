@@ -12,6 +12,7 @@ TagManager:
   - Fan
   - Gun
   - Cannon
+  - Water
   layers:
   - Default
   - TransparentFX
