@@ -16,6 +16,7 @@ public class Player_Life : MonoBehaviour
     [SerializeField] private GameObject playerWithGun;
 
     [SerializeField] private AudioSource deathSound;
+    [SerializeField] private AudioSource waterSound;
 
     [SerializeField] private Slider deathSlider;
 
@@ -88,6 +89,13 @@ public class Player_Life : MonoBehaviour
             isOnFan = true;
         }
         else isOnFan = false;
+    }
+    protected void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Water"))
+        {
+            waterSound.Play();
+        }
     }
 
     protected void OnTriggerStay2D(Collider2D collision)
