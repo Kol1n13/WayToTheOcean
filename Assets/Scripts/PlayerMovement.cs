@@ -51,14 +51,14 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.running;
             sprite.flipX = false;
-            gunPoint.localPosition = new Vector3(1.2f, gunPoint.localPosition.y, gunPoint.localPosition.z);
+            gunPoint.localPosition = new Vector3(1.07f, gunPoint.localPosition.y, gunPoint.localPosition.z);
             gunPoint.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
         else if (dirX < 0f)
         {
             state = MovementState.running;
             sprite.flipX = true;
-            gunPoint.localPosition = new Vector3(-1.2f, gunPoint.localPosition.y, gunPoint.localPosition.z);
+            gunPoint.localPosition = new Vector3(-1.07f, gunPoint.localPosition.y, gunPoint.localPosition.z);
             gunPoint.rotation = Quaternion.Euler(0f, 0f, 180f);
         }
         else
