@@ -21,7 +21,6 @@ public class CannonScript : MonoBehaviour
         if (timeBetween <= 0)
         {
             Instantiate(bullet, firepoint.position, firepoint.rotation);
-            cannonSound.Play();
             timeBetween = startTimeBetween;
         }
         else
