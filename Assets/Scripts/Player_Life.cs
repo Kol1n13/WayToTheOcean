@@ -37,6 +37,15 @@ public class Player_Life : MonoBehaviour
         rjbody = GetComponent<Rigidbody2D>();
         deathTimer = deathTimerInterval; // Инициализация таймера смерти
         deathSlider.maxValue = deathTimerInterval; // Установка максимального значения слайдера
+
+        if (Checkpoint.isCheckpointCollect)
+        {
+            player.transform.position = Checkpoint.checkpointPosition;
+            player.SetActive(false);
+            playerWithGun.SetActive(true);
+            playerWithGun.transform.position = player.transform.position;
+            ItemCollecter.isGunCollected = true;
+        }
     }
 
 
@@ -122,6 +131,14 @@ public class Player_Life : MonoBehaviour
         rjbody.bodyType = RigidbodyType2D.Static;
         anime.SetTrigger("Death");
         deathTimer = deathTimerInterval; // Сбросить таймер смерти
+        StartCoroutine(DelayedRestartLevel());
+    }
+
+    IEnumerator DelayedRestartLevel()
+    {
+        yield return new WaitForSeconds(1.0f); // Подождать 1 секунду
+
+        RestartLevel(); // Вызвать метод RestartLevel()
     }
 
     protected void RestartLevel()

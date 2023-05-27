@@ -13,6 +13,7 @@ TagManager:
   - Gun
   - Cannon
   - Water
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

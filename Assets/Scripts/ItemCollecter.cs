@@ -13,7 +13,8 @@ public class ItemCollecter : MonoBehaviour
     [SerializeField] private GameObject playerWithGun;
 
     public static bool isGunCollected;
-    bool flag = true;
+    public static bool isGunCollectedForCheck;
+    public static bool flag = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -30,17 +31,17 @@ public class ItemCollecter : MonoBehaviour
             collectSound.Play();
             Destroy(collision.gameObject);
             isGunCollected = true;
+            isGunCollectedForCheck = true;
             player.SetActive(false);
             playerWithGun.SetActive(true);
             ChangePosition();
         }
     }
-    private void ChangePosition()
+    public void ChangePosition()
     {
         if (flag)
         {
             playerWithGun.transform.position = player.transform.position;
-            flag = false;
         }
     }
 
