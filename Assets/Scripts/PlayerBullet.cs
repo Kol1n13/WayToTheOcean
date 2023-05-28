@@ -8,8 +8,9 @@ public class PlayerBullet : MonoBehaviour
     public Rigidbody2D rb;
     public float timeToLive = 7f;
 
-    private float spawnTime;
     public GameObject impactEffect;
+    private float spawnTime;
+
 
     void Start()
     {

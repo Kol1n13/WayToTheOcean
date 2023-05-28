@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
-    [SerializeField] private LayerMask jumpableGroud;
+    [SerializeField] private LayerMask jumpableGround;
 
     private enum MovementState { idle, running, jumping, falling }
 
@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
         gunPoint = transform.Find("GunPoint");
     }
 
-    // Update is called once per frame
     private void Update()
     {
         dirX = Input.GetAxisRaw("Horizontal");
@@ -69,17 +68,15 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.jumping;
         }
-        if (rb.velocity.y < -.1f && Player_Life.isOnFan == false)
+        if (rb.velocity.y < -.1f && PlayerLife.isOnFan == false)
         {
             state = MovementState.falling;
         }
         anime.SetInteger("MovementState", (int)state);
     }
 
-
-
     private bool IsGrounded()
     {
-        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGroud);
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 }

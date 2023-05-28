@@ -13,8 +13,8 @@ public class Firetrap : MonoBehaviour
     private Animator anim;
     private SpriteRenderer spriteRend;
 
-    private bool triggered; //when the trap gets triggered
-    public static bool active; //when the trap is active and can hurt the player
+    private bool triggered;
+    public static bool active; 
 
 
     private void Awake()
@@ -33,17 +33,14 @@ public class Firetrap : MonoBehaviour
 
     private IEnumerator ActivateFiretrap()
     {
-        //turn the sprite red to notify the player and trigger the trap
         triggered = true;
         spriteRend.color = Color.red;
 
-        //Wait for delay, activate trap, turn on animation, return color back to normal
         yield return new WaitForSeconds(activationDelay);
-        spriteRend.color = Color.white; //turn the sprite back to its initial color
+        spriteRend.color = Color.white;
         active = true;
         anim.SetBool("activated", true);
 
-        //Wait until X seconds, deactivate trap and reset all variables and animator
         yield return new WaitForSeconds(activeTime);
         active = false;
         triggered = false;

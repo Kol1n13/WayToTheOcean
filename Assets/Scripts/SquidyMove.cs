@@ -12,11 +12,10 @@ public class SquidyMove : MonoBehaviour
     [SerializeField] private float maxSpeed = 10f; // максимальная скорость движения
     private int currentWaypointIndex = 0;
 
-    private enum MovementState { blink, left, right, topDown }
-
     private float horizontalMoveTime = 0f; // время движения по горизонтали
     private const float maxHorizontalMoveTime = 3f; // максимальное время движения по горизонтали
 
+    private enum MovementState { blink, left, right, topDown }
 
     private void Start()
     {
@@ -25,43 +24,56 @@ public class SquidyMove : MonoBehaviour
 
     private void Update()
     {
+        UpdateWaypoint();
+        MoveTowardsWaypoint();
+        UpdateMovementState();
+        UpdateSpeed();
+        UpdateAnimation();
+    }
+
+    private void UpdateWaypoint()
+    {
         if (Vector2.Distance(waypoints[currentWaypointIndex].transform.position, transform.position) < .1f)
         {
-            currentWaypointIndex += 1;
-            if (currentWaypointIndex >= waypoints.Length)
-            {
-                currentWaypointIndex = 0;
-            }
+            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
         }
-        transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, Time.deltaTime * speed);
+    }
 
+    private void MoveTowardsWaypoint()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, Time.deltaTime * speed);
+    }
+
+    private void UpdateMovementState()
+    {
         Vector2 direction = waypoints[currentWaypointIndex].transform.position - transform.position;
 
-        // определение состояния движения
-        MovementState state;
         if (direction.x > 0f)
         {
-            state = MovementState.right;
-            // увеличение времени движения по горизонтали
+            SetMovementState(MovementState.right);
             horizontalMoveTime += Time.deltaTime;
         }
         else if (direction.x < 0f)
         {
-            state = MovementState.left;
-            // увеличение времени движения по горизонтали
+            SetMovementState(MovementState.left);
             horizontalMoveTime += Time.deltaTime;
         }
         else
         {
-            state = MovementState.blink;
-            // обнуление времени движения по горизонтали
+            SetMovementState(MovementState.blink);
             horizontalMoveTime = 0f;
         }
 
-        // определение скорости движения
-        if (state == MovementState.left || state == MovementState.right)
+        if (Mathf.Abs(direction.y) > 0.1f)
         {
-            // скорость движения зависит от времени движения по горизонтали
+            SetMovementState(MovementState.topDown);
+        }
+    }
+
+    private void UpdateSpeed()
+    {
+        if (IsMovingHorizontally())
+        {
             float speedFactor = Mathf.Clamp(horizontalMoveTime / maxHorizontalMoveTime, 0f, 1f);
             speed = Mathf.Lerp(minSpeed, maxSpeed, speedFactor);
         }
@@ -69,14 +81,26 @@ public class SquidyMove : MonoBehaviour
         {
             speed = minSpeed;
         }
+    }
 
-        // проверка на движение по вертикали
-        if (Mathf.Abs(direction.y) > 0.1f)
-        {
-            state = MovementState.topDown;
-        }
+    private void UpdateAnimation()
+    {
+        anime.SetInteger("MovementState", (int)GetCurrentMovementState());
+    }
 
-        // установка анимации
+    private void SetMovementState(MovementState state)
+    {
         anime.SetInteger("MovementState", (int)state);
+    }
+
+    private MovementState GetCurrentMovementState()
+    {
+        return (MovementState)anime.GetInteger("MovementState");
+    }
+
+    private bool IsMovingHorizontally()
+    {
+        MovementState state = GetCurrentMovementState();
+        return state == MovementState.left || state == MovementState.right;
     }
 }

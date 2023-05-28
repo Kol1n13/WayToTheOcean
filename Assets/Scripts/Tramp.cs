@@ -5,7 +5,6 @@ using UnityEngine;
 public class Tramp : MonoBehaviour
 {
     private Animator anime;
-    
     [SerializeField] private AudioSource jumpSound;
     
     void Start()
@@ -19,6 +18,4 @@ public class Tramp : MonoBehaviour
             jumpSound.Play();
             anime.SetTrigger("trigger");
     }
-
-
 }

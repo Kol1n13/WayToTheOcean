@@ -1,31 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CannonScript : MonoBehaviour
 {
     public Transform firepoint;
     public GameObject bullet;
-    float timeBetween;
-    public float startTimeBetween;
+    public float startTimeBetween = 1f;
 
+    private float timeBetween;
     [SerializeField] private AudioSource cannonSound;
 
-    void Start()
+    private void Start()
     {
         timeBetween = startTimeBetween;
     }
 
-    void Update()
+    private void Update()
     {
         if (timeBetween <= 0)
         {
-            Instantiate(bullet, firepoint.position, firepoint.rotation);
+            FireBullet();
             timeBetween = startTimeBetween;
         }
         else
         {
             timeBetween -= Time.deltaTime;
+        }
+    }
+
+    private void FireBullet()
+    {
+        Instantiate(bullet, firepoint.position, firepoint.rotation);
+        PlayCannonSound();
+    }
+
+    private void PlayCannonSound()
+    {
+        if (cannonSound != null)
+        {
+            cannonSound.Play();
         }
     }
 }

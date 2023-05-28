@@ -28,21 +28,19 @@ public class ItemCollecter : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Gun"))
         {
-            collectSound.Play();
-            Destroy(collision.gameObject);
-            isGunCollected = true;
-            isGunCollectedForCheck = true;
-            player.SetActive(false);
-            playerWithGun.SetActive(true);
-            ChangePosition();
+            GiveGunToPlayer(collision);
         }
     }
-    public void ChangePosition()
+
+    private void GiveGunToPlayer(Collider2D collision)
     {
-        if (flag)
-        {
-            playerWithGun.transform.position = player.transform.position;
-        }
+        collectSound.Play();
+        Destroy(collision.gameObject);
+        isGunCollected = true;
+        isGunCollectedForCheck = true;
+        player.SetActive(false);
+        playerWithGun.SetActive(true);
+        playerWithGun.transform.position = player.transform.position;
     }
 
 }

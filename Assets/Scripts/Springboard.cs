@@ -3,6 +3,7 @@ using UnityEngine;
 public class Springboard : MonoBehaviour
 {
     private Animator anim;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
