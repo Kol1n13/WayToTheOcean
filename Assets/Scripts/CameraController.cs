@@ -4,6 +4,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private Transform playerWithGun;
+    [SerializeField] private Transform boss;
 
     private void Update()
     {
@@ -13,13 +14,20 @@ public class CameraController : MonoBehaviour
 
     private Vector3 GetTargetPosition()
     {
-        if (ItemCollecter.isGunCollected)
+        if (!BossLogic.isBossFightStart)
         {
-            return new Vector3(playerWithGun.position.x, playerWithGun.position.y, transform.position.z);
+            return new Vector3(boss.position.x, boss.position.y, transform.position.z);
         }
         else
         {
-            return new Vector3(player.position.x, player.position.y, transform.position.z);
+            if (ItemCollecter.isGunCollected)
+            {
+                return new Vector3(playerWithGun.position.x, playerWithGun.position.y, transform.position.z);
+            }
+            else
+            {
+                return new Vector3(player.position.x, player.position.y, transform.position.z);
+            }
         }
     }
 
