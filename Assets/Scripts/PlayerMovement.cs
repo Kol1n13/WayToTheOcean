@@ -61,22 +61,14 @@ public class PlayerMovement : MonoBehaviour
             gunPoint.rotation = Quaternion.Euler(0f, 0f, 180f);
         }
         else
-        {
             state = MovementState.idle;
-        }
         if (rb.velocity.y > .1f)
-        {
             state = MovementState.jumping;
-        }
         if (rb.velocity.y < -.1f && PlayerLife.isOnFan == false)
-        {
             state = MovementState.falling;
-        }
         anime.SetInteger("MovementState", (int)state);
     }
 
-    private bool IsGrounded()
-    {
-        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
-    }
+    private bool IsGrounded() =>
+        Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
 }

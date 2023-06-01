@@ -11,10 +11,7 @@ public class EnemyMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private int currentWaypointIndex = 0;
 
-    private void Start()
-    {
-        sprite = GetComponent<SpriteRenderer>();
-    }
+    private void Start() => sprite = GetComponent<SpriteRenderer>();
 
     private void Update()
     {
@@ -27,16 +24,13 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, Time.deltaTime * speed);
+        transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position,
+            Time.deltaTime * speed);
         Vector2 direction = waypoints[currentWaypointIndex].transform.position - transform.position;
 
         if (direction.x > 0f)
-        {
             sprite.flipX = true;
-        }
         else if (direction.x < 0f)
-        {
             sprite.flipX = false;
-        }
     }
 }

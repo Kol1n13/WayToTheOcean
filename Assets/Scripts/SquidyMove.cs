@@ -8,19 +8,16 @@ public class SquidyMove : MonoBehaviour
 
     [SerializeField] private GameObject[] waypoints;
     [SerializeField] private float speed = 2f;
-    [SerializeField] private float minSpeed = 2f; // минимальная скорость движения
-    [SerializeField] private float maxSpeed = 10f; // максимальная скорость движения
+    [SerializeField] private float minSpeed = 2f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private float maxSpeed = 10f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     private int currentWaypointIndex = 0;
 
-    private float horizontalMoveTime = 0f; // время движения по горизонтали
-    private const float maxHorizontalMoveTime = 3f; // максимальное время движения по горизонтали
+    private float horizontalMoveTime = 0f; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private const float maxHorizontalMoveTime = 3f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     private enum MovementState { blink, left, right, topDown }
 
-    private void Start()
-    {
-        anime = GetComponent<Animator>();
-    }
+    private void Start() => anime = GetComponent<Animator>();
 
     private void Update()
     {
@@ -34,15 +31,11 @@ public class SquidyMove : MonoBehaviour
     private void UpdateWaypoint()
     {
         if (Vector2.Distance(waypoints[currentWaypointIndex].transform.position, transform.position) < .1f)
-        {
             currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-        }
     }
 
-    private void MoveTowardsWaypoint()
-    {
-        transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, Time.deltaTime * speed);
-    }
+    private void MoveTowardsWaypoint() => transform.position = Vector2.MoveTowards(transform.position,
+        waypoints[currentWaypointIndex].transform.position, Time.deltaTime * speed);
 
     private void UpdateMovementState()
     {
@@ -63,11 +56,8 @@ public class SquidyMove : MonoBehaviour
             SetMovementState(MovementState.blink);
             horizontalMoveTime = 0f;
         }
-
         if (Mathf.Abs(direction.y) > 0.1f)
-        {
             SetMovementState(MovementState.topDown);
-        }
     }
 
     private void UpdateSpeed()
@@ -78,25 +68,14 @@ public class SquidyMove : MonoBehaviour
             speed = Mathf.Lerp(minSpeed, maxSpeed, speedFactor);
         }
         else
-        {
             speed = minSpeed;
-        }
     }
 
-    private void UpdateAnimation()
-    {
-        anime.SetInteger("MovementState", (int)GetCurrentMovementState());
-    }
+    private void UpdateAnimation() => anime.SetInteger("MovementState", (int)GetCurrentMovementState());
 
-    private void SetMovementState(MovementState state)
-    {
-        anime.SetInteger("MovementState", (int)state);
-    }
+    private void SetMovementState(MovementState state) => anime.SetInteger("MovementState", (int)state);
 
-    private MovementState GetCurrentMovementState()
-    {
-        return (MovementState)anime.GetInteger("MovementState");
-    }
+    private MovementState GetCurrentMovementState() => (MovementState)anime.GetInteger("MovementState");
 
     private bool IsMovingHorizontally()
     {

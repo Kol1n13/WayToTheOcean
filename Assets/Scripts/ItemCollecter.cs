@@ -27,9 +27,7 @@ public class ItemCollecter : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Gun"))
-        {
             GiveGunToPlayer(collision);
-        }
     }
 
     private void GiveGunToPlayer(Collider2D collision)

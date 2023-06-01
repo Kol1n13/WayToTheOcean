@@ -25,9 +25,7 @@ public class Enemy : MonoBehaviour
     public void Update()
     {
         if (isObjectBoss)
-        {
             BossLogic.health = health;
-        }
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
@@ -36,15 +34,11 @@ public class Enemy : MonoBehaviour
         {
             health -= damage;
             if (!isPlaying)
-            {
                 PlayDieSound();
-            }
         }
 
         if (health <= 0)
-        {
             Die();
-        }
     }
 
     void Die()
@@ -52,9 +46,7 @@ public class Enemy : MonoBehaviour
         anime.SetTrigger("Death");
         Destroy(gameObject, 0.2f);
         if (isObjectBoss)
-        {
             BossLogic.isBossFightEnd = true;
-        }
     }
 
     void PlayDieSound()

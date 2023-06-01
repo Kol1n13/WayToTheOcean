@@ -58,9 +58,7 @@ public class PlayerLife : MonoBehaviour
             deathTimer -= Time.deltaTime;
             deathSlider.value = deathTimer;
             if (deathTimer <= 0f)
-            {
                 Die();
-            }
         }
     }
 
@@ -69,9 +67,7 @@ public class PlayerLife : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         if (isFalling && rigidbody.velocity.y < fallThreshold && !isPlayerDead)
-        {
             Die();
-        }
 
         isFalling = false;
     }
@@ -86,34 +82,24 @@ public class PlayerLife : MonoBehaviour
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpForce);
         }
         if (collision.gameObject.CompareTag("Fan"))
-        {
             isOnFan = true;
-        }
         else
-        {
             isOnFan = false;
-        }
     }
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Water"))
-        {
             waterSound.Play();
-        }
     }
 
     protected void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Firetrap") && Firetrap.active || collision.gameObject.CompareTag("Fan"))
-        {
             Die();
-        }
 
         if (collision.gameObject.CompareTag("Water"))
-        {
             deathTimer = deathTimerInterval;
-        }
     }
 
     protected void Die()
@@ -132,7 +118,6 @@ public class PlayerLife : MonoBehaviour
     IEnumerator DelayedRestartLevel()
     {
         yield return new WaitForSeconds(1.0f);
-
         RestartLevel();
     }
 

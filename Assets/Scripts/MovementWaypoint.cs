@@ -15,10 +15,10 @@ public class MovementWaypoint : MonoBehaviour
         {
             currentWaypointIndex += 1;
             if (currentWaypointIndex >= waypoints.Length)
-            {
                 currentWaypointIndex = 0;
-            }
         }
-        transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, Time.deltaTime * speed);
+
+        transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position,
+            Time.deltaTime * speed);
     }
 }

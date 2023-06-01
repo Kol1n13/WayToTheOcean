@@ -7,10 +7,7 @@ public class Tramp : MonoBehaviour
     private Animator anime;
     [SerializeField] private AudioSource jumpSound;
     
-    void Start()
-    {
-        anime = GetComponent<Animator>();
-    }
+    void Start() => anime = GetComponent<Animator>();
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

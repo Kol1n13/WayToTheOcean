@@ -10,21 +10,13 @@ public class CannonScript : MonoBehaviour
     [SerializeField] private AudioSource cannonSound;
     [SerializeField] private bool isObjectBoss;
 
-    private void Start()
-    {
-        timeBetween = startTimeBetween;
-    }
+    private void Start() => timeBetween = startTimeBetween;
 
     private void Update()
     {
-        if (isObjectBoss && BossLogic.currentPhase == BossLogic.BossPhase.Shoot && BossLogic.isPhaseActive)
-        {
+        if (isObjectBoss && BossLogic.currentPhase == BossLogic.BossPhase.Shoot && BossLogic.isPhaseActive ||
+            !isObjectBoss)
             Timer();
-        }
-        else if (!isObjectBoss)
-        {
-            Timer();
-        }
     }
 
     private void Timer()
@@ -35,24 +27,16 @@ public class CannonScript : MonoBehaviour
             timeBetween = startTimeBetween;
         }
         else
-        {
             timeBetween -= Time.deltaTime;
-        }
     }
 
     private void FireBullet()
     {
         if (isObjectBoss)
-        {
             foreach (Transform firepoint in firepoints)
-            {
                 Instantiate(bullet, firepoint.position, firepoint.rotation);
-            }
-        }
         else
-        {
             Instantiate(bullet, firepoints[0].position, firepoints[0].rotation);
-        }
 
         PlayCannonSound();
     }
@@ -60,8 +44,6 @@ public class CannonScript : MonoBehaviour
     private void PlayCannonSound()
     {
         if (cannonSound != null)
-        {
             cannonSound.Play();
-        }
     }
 }

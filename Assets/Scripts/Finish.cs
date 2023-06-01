@@ -6,10 +6,7 @@ public class Finish : MonoBehaviour
     private AudioSource finishSound;
     private bool levelCompleted = false;
 
-    private void Start()
-    {
-        finishSound = GetComponent<AudioSource>();
-    }
+    private void Start() => finishSound = GetComponent<AudioSource>();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -27,18 +24,9 @@ public class Finish : MonoBehaviour
         return gameObjectName == "Player" || gameObjectName == "PlayerWithGun";
     }
 
-    private void PlayFinishSound()
-    {
-        finishSound.Play();
-    }
+    private void PlayFinishSound() => finishSound.Play();
 
-    private void CompleteLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+    private void CompleteLevel() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
-    private void PauseGame()
-    {
-        Time.timeScale = 0;
-    }
+    private void PauseGame() => Time.timeScale = 0;
 }

@@ -16,16 +16,11 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    private void Shoot()
-    {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-    }
+    private void Shoot() => Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
     private void PlayShootSound()
     {
         if (shootSound != null)
-        {
             shootSound.Play();
-        }
     }
 }

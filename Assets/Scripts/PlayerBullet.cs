@@ -31,19 +31,13 @@ public class PlayerBullet : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Player")
-        {
             return;
-        }
         var impact = Instantiate(impactEffect, transform.position, transform.rotation);
         Animation animation;
         if (impact.TryGetComponent<Animation>(out animation))
-        {
             Destroy(impact, animation.clip.length);
-        }
         else
-        {
             Destroy(impact, 0.25f);
-        }
         Destroy(gameObject);
     }
 }
