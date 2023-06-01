@@ -44,10 +44,14 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         anime.SetTrigger("Death");
-        Destroy(gameObject, 0.2f);
         if (isObjectBoss)
         {
             BossLogic.isBossFightEnd = true;
+            Destroy(gameObject, 0.4f);
+        }
+        else
+        {
+            Destroy(gameObject, 0.2f);
         }
             
     }
