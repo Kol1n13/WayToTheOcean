@@ -12,9 +12,22 @@ public class Enemy : MonoBehaviour
     private bool isPlaying = false;
     [SerializeField] private bool isObjectBoss;
 
-    private void Start()
+    public void Start()
     {
         anime = GetComponent<Animator>();
+        if (isObjectBoss)
+        {
+            BossLogic.maxHealth = health;
+            BossLogic.health = health;
+        }
+    }
+
+    public void Update()
+    {
+        if (isObjectBoss)
+        {
+            BossLogic.health = health;
+        }
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
@@ -22,7 +35,6 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
             health -= damage;
-
             if (!isPlaying)
             {
                 PlayDieSound();

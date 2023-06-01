@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
 
     private Vector3 GetTargetPosition()
     {
-        if (!BossLogic.isBossFightStart)
+        if (!BossLogic.isBossFightStart && boss != null)
         {
             return new Vector3(boss.position.x, boss.position.y, transform.position.z);
         }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BossLogic : MonoBehaviour
 {
@@ -11,10 +13,14 @@ public class BossLogic : MonoBehaviour
     [SerializeField] private GameObject monsterPrefab;
     [SerializeField] private Transform[] spawnPoints;
 
+    [SerializeField] private Slider healthSlider;
+
     [SerializeField] private float speed = 2f;
     private int currentWaypoint = 0;
     public static bool isBossFightStart = false;
     public static bool isBossFightEnd = false;
+    public static int health;
+    public static int maxHealth;
 
     public enum BossPhase
     {
@@ -29,16 +35,26 @@ public class BossLogic : MonoBehaviour
     private int monstersSpawned = 0; // Счетчик созданных монстров
     private const int maxMonsters = 4; // Максимальное количество монстров для создания
 
+    private BossPhase previousPhase; // Предыдущая фаза
+
     private void Start()
     {
         ResetBossSettings();
+        StartCoroutine(SpawnMonstersPeriodically(5f));
     }
 
     private void Update()
     {
+        if (isBossFightStart)
+        {
+            healthSlider.value = (float)health / maxHealth;
+        }
+
+
         if (isBossFightStart == false)
         {
             Movement(waypointToStartLvl);
+            healthSlider.value = maxHealth;
         }
         else
         {
@@ -57,7 +73,7 @@ public class BossLogic : MonoBehaviour
                     break;
 
                 case BossPhase.SummonHelpers:
-                    InstantiateMonsters();
+                    // В этой фазе монстры спаунятся периодически, поэтому нет необходимости вызывать InstantiateMonsters()
                     break;
             }
         }
@@ -71,17 +87,28 @@ public class BossLogic : MonoBehaviour
     private void StartNextPhase()
     {
         isPhaseActive = true;
-        currentPhase = (BossPhase)Random.Range(0, 3);
+
+        if (previousPhase == BossPhase.Move)
+        {
+            // Если предыдущая фаза была Move, выбираем следующую фазу исключая Move
+            int randomPhaseIndex = Random.Range(1, 3); // 1: Shoot, 2: SummonHelpers
+            currentPhase = (BossPhase)randomPhaseIndex;
+        }
+        else
+        {
+            currentPhase = (BossPhase)Random.Range(0, 3);
+        }
+
         StartCoroutine(EndPhase());
     }
 
     private IEnumerator EndPhase()
-    {   
-        if (currentPhase == BossLogic.BossPhase.SummonHelpers)
+    {
+        if (currentPhase == BossPhase.SummonHelpers)
         {
             isPhaseActive = false;
         }
-        else 
+        else
         {
             yield return new WaitForSeconds(3f);
             isPhaseActive = false;
@@ -111,9 +138,22 @@ public class BossLogic : MonoBehaviour
     {
         isBossFightStart = false;
         isPhaseActive = false;
+        previousPhase = BossPhase.SummonHelpers; // Изначально предыдущая фаза установлена на SummonHelpers
     }
 
-    private void InstantiateMonsters()
+    private IEnumerator SpawnMonstersPeriodically(float interval)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(interval);
+            if (isBossFightStart && currentPhase != BossPhase.SummonHelpers)
+            {
+                SpawnMonsters();
+            }
+        }
+    }
+
+    private void SpawnMonsters()
     {
         if (monstersSpawned < maxMonsters)
         {
