@@ -25,12 +25,12 @@ public class EnemyController : MonoBehaviour
     {
         if (player.position.x < transform.position.x)
         {
-            // Игрок находится слева от врага, двигаемся влево
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
         }
         else if (player.position.x > transform.position.x)
         {
-            // Игрок находится справа от врага, двигаемся вправо
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
         }
     }

@@ -33,7 +33,7 @@ public class BossLogic : MonoBehaviour
     public static bool isPhaseActive = false;
 
     private int monstersSpawned = 0; // Счетчик созданных монстров
-    private const int maxMonsters = 4; // Максимальное количество монстров для создания
+    private const int maxMonsters = 6; // Максимальное количество монстров для создания
 
     private BossPhase previousPhase; // Предыдущая фаза
 
@@ -48,6 +48,7 @@ public class BossLogic : MonoBehaviour
         if (isBossFightStart)
         {
             healthSlider.value = (float)health / maxHealth;
+            finish.SetActive(false);
         }
 
 
@@ -73,7 +74,7 @@ public class BossLogic : MonoBehaviour
                     break;
 
                 case BossPhase.SummonHelpers:
-                    // В этой фазе монстры спаунятся периодически, поэтому нет необходимости вызывать InstantiateMonsters()
+                    SpawnMonsters();
                     break;
             }
         }
@@ -81,6 +82,10 @@ public class BossLogic : MonoBehaviour
         if (isBossFightEnd)
         {
             finish.SetActive(true);
+        }
+        else
+        {
+            finish.SetActive(false);
         }
     }
 
@@ -137,6 +142,7 @@ public class BossLogic : MonoBehaviour
     private void ResetBossSettings()
     {
         isBossFightStart = false;
+        isBossFightEnd = false;
         isPhaseActive = false;
         previousPhase = BossPhase.SummonHelpers; // Изначально предыдущая фаза установлена на SummonHelpers
     }

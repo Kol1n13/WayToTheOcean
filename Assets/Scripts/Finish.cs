@@ -15,6 +15,7 @@ public class Finish : MonoBehaviour
             PlayFinishSound();
             levelCompleted = true;
             Invoke("CompleteLevel", 2f);
+            Checkpoint.isCheckpointCollect = false;
         }
     }
 

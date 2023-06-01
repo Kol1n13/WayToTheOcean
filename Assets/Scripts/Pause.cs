@@ -23,7 +23,7 @@ public class Pause : MonoBehaviour
 
     public void GoToMenu()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("PlotScene");
         ItemCollecter.isGunCollected = false;
         Time.timeScale = 1;
     }

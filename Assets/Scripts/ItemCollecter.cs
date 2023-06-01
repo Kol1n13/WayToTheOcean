@@ -23,7 +23,7 @@ public class ItemCollecter : MonoBehaviour
             collectSound.Play();
             Destroy(collision.gameObject);
             apples++;
-            ApplesText.text = "Apples: " + apples;
+            ApplesText.text = "Score: " + apples;
         }
 
         if (collision.gameObject.CompareTag("Gun"))

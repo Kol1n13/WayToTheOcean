@@ -46,7 +46,10 @@ public class Enemy : MonoBehaviour
         anime.SetTrigger("Death");
         Destroy(gameObject, 0.2f);
         if (isObjectBoss)
+        {
             BossLogic.isBossFightEnd = true;
+        }
+            
     }
 
     void PlayDieSound()
