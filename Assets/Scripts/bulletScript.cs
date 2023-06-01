@@ -1,37 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour
+public class bulletScript : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
-    private Rigidbody2D rb;
+    public float speed;
+    Rigidbody2D rb;
 
-    private void Awake()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void Start()
-    {
-        Move();
-        DestroyAfterDelay(4f);
-    }
-
-    private void Move()
-    {
         rb.velocity = transform.right * speed;
+        Destroy(gameObject, 4f);
     }
-
-    private void DestroyAfterDelay(float delay)
-    {
-        Destroy(gameObject, delay);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Cannon"))
-        {
             return;
-        }
 
         Destroy(gameObject);
     }
