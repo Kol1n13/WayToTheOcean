@@ -32,10 +32,10 @@ public class BossLogic : MonoBehaviour
     public static BossPhase currentPhase;
     public static bool isPhaseActive = false;
 
-    private int monstersSpawned = 0; // Счетчик созданных монстров
-    private const int maxMonsters = 4; // Максимальное количество монстров для создания
+    private int monstersSpawned = 0; // РЎС‡РµС‚С‡РёРє СЃРѕР·РґР°РЅРЅС‹С… РјРѕРЅСЃС‚СЂРѕРІ
+    private const int maxMonsters = 4; // РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РјРѕРЅСЃС‚СЂРѕРІ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ
 
-    private BossPhase previousPhase; // Предыдущая фаза
+    private BossPhase previousPhase; // РџСЂРµРґС‹РґСѓС‰Р°СЏ С„Р°Р·Р°
 
     private void Start()
     {
@@ -73,7 +73,7 @@ public class BossLogic : MonoBehaviour
                     break;
 
                 case BossPhase.SummonHelpers:
-                    // В этой фазе монстры спаунятся периодически, поэтому нет необходимости вызывать InstantiateMonsters()
+                    // Р’ СЌС‚РѕР№ С„Р°Р·Рµ РјРѕРЅСЃС‚СЂС‹ СЃРїР°СѓРЅСЏС‚СЃСЏ РїРµСЂРёРѕРґРёС‡РµСЃРєРё, РїРѕСЌС‚РѕРјСѓ РЅРµС‚ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё РІС‹Р·С‹РІР°С‚СЊ InstantiateMonsters()
                     break;
             }
         }
@@ -90,7 +90,7 @@ public class BossLogic : MonoBehaviour
 
         if (previousPhase == BossPhase.Move)
         {
-            // Если предыдущая фаза была Move, выбираем следующую фазу исключая Move
+            // Р•СЃР»Рё РїСЂРµРґС‹РґСѓС‰Р°СЏ С„Р°Р·Р° Р±С‹Р»Р° Move, РІС‹Р±РёСЂР°РµРј СЃР»РµРґСѓСЋС‰СѓСЋ С„Р°Р·Сѓ РёСЃРєР»СЋС‡Р°СЏ Move
             int randomPhaseIndex = Random.Range(1, 3); // 1: Shoot, 2: SummonHelpers
             currentPhase = (BossPhase)randomPhaseIndex;
         }
@@ -138,7 +138,7 @@ public class BossLogic : MonoBehaviour
     {
         isBossFightStart = false;
         isPhaseActive = false;
-        previousPhase = BossPhase.SummonHelpers; // Изначально предыдущая фаза установлена на SummonHelpers
+        previousPhase = BossPhase.SummonHelpers; // РР·РЅР°С‡Р°Р»СЊРЅРѕ РїСЂРµРґС‹РґСѓС‰Р°СЏ С„Р°Р·Р° СѓСЃС‚Р°РЅРѕРІР»РµРЅР° РЅР° SummonHelpers
     }
 
     private IEnumerator SpawnMonstersPeriodically(float interval)
