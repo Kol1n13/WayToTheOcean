@@ -6,6 +6,14 @@ TagManager:
   tags:
   - Apple
   - Traps
+  - Firetrap
+  - Tramp
+  - PlayerBullet
+  - Fan
+  - Gun
+  - Cannon
+  - Water
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

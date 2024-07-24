@@ -9,12 +9,16 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private BoxCollider2D coll;
 
+    private Transform gunPoint;
+
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
-    [SerializeField] private LayerMask jumpableGroud;
-    
+    [SerializeField] private LayerMask jumpableGround;
+
     private enum MovementState { idle, running, jumping, falling }
+
+    [SerializeField] private AudioSource jumpSound;
 
     private void Start()
     {
@@ -22,9 +26,9 @@ public class PlayerMovement : MonoBehaviour
         anime = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
+        gunPoint = transform.Find("GunPoint");
     }
 
-    // Update is called once per frame
     private void Update()
     {
         dirX = Input.GetAxisRaw("Horizontal");
@@ -32,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
+            jumpSound.Play();
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);
         }
 
@@ -45,29 +50,25 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.running;
             sprite.flipX = false;
+            gunPoint.localPosition = new Vector3(1.07f, gunPoint.localPosition.y, gunPoint.localPosition.z);
+            gunPoint.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
         else if (dirX < 0f)
         {
             state = MovementState.running;
             sprite.flipX = true;
+            gunPoint.localPosition = new Vector3(-1.07f, gunPoint.localPosition.y, gunPoint.localPosition.z);
+            gunPoint.rotation = Quaternion.Euler(0f, 0f, 180f);
         }
         else
-        {
-            state = MovementState.idle; 
-        }
+            state = MovementState.idle;
         if (rb.velocity.y > .1f)
-        {
             state = MovementState.jumping;
-        }
-        if (rb.velocity.y < -.1f)
-        {
+        if (rb.velocity.y < -.1f && PlayerLife.isOnFan == false)
             state = MovementState.falling;
-        }
         anime.SetInteger("MovementState", (int)state);
     }
 
-    private bool IsGrounded()
-    {
-        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGroud);
-    }
+    private bool IsGrounded() =>
+        Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
 }
